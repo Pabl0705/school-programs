@@ -4,7 +4,7 @@
 # @edt ASIX M06 Curs 2023-2024
 # Alumne: Pablo Ruz
 #
-# head [-n nlin 5|10|15] [-f file]
+# head [-n nlin 5|10|15] file
 # default = 10, file o stdin
 # 
 # ----------------------------------------------------
@@ -22,9 +22,9 @@ parser.add_argument("-n","--nlin", type=int,\
                     metavar="number", choices=[5,10,15])
 
 
-parser.add_argument("-f","--file", type=str,\
+parser.add_argument("file",type=str,\
                     help="fitxer a processar",\
-                    metavar="file", default="/dev/stdin")
+                    metavar="file")
 
 args = parser.parse_args()
 

@@ -4,7 +4,7 @@
 # @edt ASIX M06 Curs 2023-2024
 # Alumne: Pablo Ruz
 #
-# head [-n nlin 5|10|15] [-f file]
+# head [-n nlin 5|10|15] [-f file] ...
 # default = 10, file o stdin
 # 
 # ----------------------------------------------------
@@ -24,19 +24,31 @@ parser.add_argument("-n","--nlin", type=int,\
 
 parser.add_argument("-f","--file", type=str,\
                     help="fitxer a processar",\
-                    metavar="file", default="/dev/stdin")
+                    metavar="file", dest="fileList",\
+                    action="append")
 
 args = parser.parse_args()
+print(args)
 
 #--------------------------------
 
 MAX=args.nlin
-contador=0
-fileIn=open(args.file,"r")
 
-for line in fileIn:
-    contador += 1
-    print(line,end="")
-    if contador == MAX: break
-fileIn.close()
+def headFile(fitxer):
+    contador=0
+    fileIn=open(fitxer,"r")
+
+    for line in fileIn:
+        contador += 1
+        print(line,end="")
+        if contador == MAX: break
+    fileIn.close()
+    return
+
+for file in args.fileList:
+
+    print("Head of",file,"file")
+    print("")
+    headFile(file)
+
 exit(0)
