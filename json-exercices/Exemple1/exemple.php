@@ -10,6 +10,7 @@ $obj = json_decode($jsonobj);
 //accessing to json
 
 echo $json;
+echo "<br>";
 
 //accessing to objects
 echo $obj->Peter . "<br>";
