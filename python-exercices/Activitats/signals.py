@@ -21,9 +21,14 @@ def sub_time(signum, frame):
     
     global down_count
     print("Signal handler with signal", signum)
-    signal.alarm(signal.alarm(0) - 60)
-    print("60 SECONDS SUBSTRACTED")
-    down_count += 1
+    actual=signal.alarm(0)
+    if actual > 60:
+        signal.alarm(actual - 60)
+        print("60 SECONDS SUBSTRACTED")
+        down_count += 1
+    else:
+        print("Ignored, not enough time")
+    
 
 def reset_time(signum, frame):
     print("Signal handler with signal", signum)
@@ -38,11 +43,13 @@ def show_time(signum, frame):
 
 
 def show_all_info(signum, frame):
+    global upper_count
+    global down_count
     print("Signal handler with signal", signum)
     alarm_time=signal.alarm(0)
     print("Uppers:", upper_count)
     print("Downs:", down_count)
-    print("Time Remaining: ",alarm_time)
+    print("Time Remaining: ", alarm_time)
     signal.alarm(alarm_time)
 
 # Verificar i creació d'arguments
